@@ -1,0 +1,10 @@
+Env-JS ready for Rails tests.
+
+Example:
+
+it 'should test something' do
+    get :index, :format => 'js'
+    js = EnvJohnson.new(response, :prototype)
+    p js.body
+    p js[:something] #getElementById("something").innerHTML
+end
