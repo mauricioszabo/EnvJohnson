@@ -65,7 +65,7 @@ class EnvJohnson
 
   def load_javascripts(jss)
     jss.each do |js|
-      @js.load("public/javascripts/#{js}.js")
+      @js.load("#{js}.js")
     end
   end
   private :load_javascripts

@@ -8,7 +8,9 @@ describe 'Custom matchers' do
   end
 
   it 'should match replaced text' do
+    pending
     js_code = "document.getElementById('example').innerHTML = 'Changed'"
     js_code.should replace_inner_html_of(:example, :with => 'Changed')
+    js_code.should_not replace_inner_html_of(:example, :with => 'Original')
   end
 end
