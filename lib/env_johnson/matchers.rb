@@ -29,7 +29,7 @@ module Matchers
       after = after.css("##{@element_id}").inner_html
       
       conditions = [before != after]
-      conditions << (after == @params[:with]) if @params[:with]
+      conditions << (@params[:with] === after) if @params[:with]
       conditions.all?
     end
 
