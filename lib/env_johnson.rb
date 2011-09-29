@@ -8,10 +8,12 @@ require 'thread'
 
 class EnvJohnson
   attr_reader :js
+  attr_reader :remote_calls
 
   def initialize(js_code, *javascripts)
     hash = javascripts.delete_at -1 if javascripts[-1].is_a?(Hash)
     @js = Johnson::Runtime.new
+    @remote_calls = []
     configure_context(@js, hash)
     @js.load(@js['dir'] + "/envjs/johnson.js")
     js = <<-JS
@@ -32,7 +34,7 @@ class EnvJohnson
     hash ||= {}
     body = generate_body(hash)
     context['global'] = context
-    context['HTTPConnection'] = HTTPConnection.new(body)
+    context['HTTPConnection'] = HTTPConnection.new(body, self)
     context['dir'] = File.expand_path(File.dirname(__FILE__))
   end
   private :configure_context
@@ -86,11 +88,13 @@ class EnvJohnson
 end
 
 class HTTPConnection
-  def initialize(body = '')
+  def initialize(body, env_johnson)
     @body = "<body id='someDivThatWillNeverBeOverwrited'>#{body}</body>"
+    @env_johnson = env_johnson
   end
 
   def go(complete_url, path)
+    @env_johnson.remote_calls << path
     response = FakeResponse.new(@body)
     headers = {
       "content-location" => "http://example.com/",
