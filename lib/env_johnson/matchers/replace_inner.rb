@@ -22,15 +22,15 @@ module Matchers
     end
 
     def failure_message
-      "Expected #{@js.inspect} #{rest}"
+      "Expected #@js #{rest}"
     end
     def negative_failure_message
-      "Expected #{@js.inspect} not to replace element '#{@element_id}'"
+      "Expected #@js not #{rest}"
     end
 
     def rest
       rest = "to replace element '#{@element_id}'"
-      rest << " with #{@params[:with]}" if @params[:with]
+      rest << " with #{@params[:with].inspect}" if @params[:with]
       return rest
     end
     private :rest
