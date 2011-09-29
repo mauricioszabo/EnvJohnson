@@ -10,6 +10,7 @@ class SpecEnvJohnson < EnvJohnson
   def inspect
     "\"#@code\""
   end
+  alias :to_s :inspect
 end
 
 RSpec = Spec if Object.const_defined? :Spec
@@ -22,3 +23,4 @@ module RSpec::Matchers
 end
 
 require "env_johnson/matchers/replace_inner"
+require "env_johnson/matchers/ajax"
