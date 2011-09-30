@@ -22,8 +22,8 @@ class EnvRubyRacer
       Envjs.resetEventLoop();
     JS
     @js.eval js
-    #load_javascripts javascripts
-    #@js.eval(js_code)
+    load_javascripts javascripts
+    @js.eval(js_code)
   end
     
   def configure_context(context, hash={})
@@ -42,6 +42,7 @@ class EnvRubyRacer
     ruby['gc'] = lambda{ GC.start() }
     context['Ruby']  = ruby
     context['fopen']     = lambda{|name, mode| File.open(name, mode)}
+    context['spawn']     = lambda{|fn| fn.call}
   end
   private :configure_context
 
