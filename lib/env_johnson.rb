@@ -1,10 +1,7 @@
 require "rubygems"
 require 'johnson'
 require 'net/http'
-require 'uri'
 require 'thread'
-
-
 
 class EnvJohnson
   attr_reader :js
@@ -95,7 +92,11 @@ class HTTPConnection
 
   def go(complete_url, path)
     @env_johnson.remote_calls << path
-    response = FakeResponse.new(@body)
+    response = if path == "/"
+      FakeResponse.new(@body)
+    else
+      FakeResponse.new "example"
+    end
     headers = {
       "content-location" => "http://example.com/",
       "content-type"=>"text/html"
