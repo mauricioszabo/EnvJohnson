@@ -24,3 +24,4 @@ end
 
 require "env_johnson/matchers/replace_inner"
 require "env_johnson/matchers/ajax"
+require "env_johnson/matchers/elements"
