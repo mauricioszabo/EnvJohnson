@@ -26,6 +26,10 @@ class EnvJohnson
     load_javascripts javascripts
     @js.evaluate(js_code)
   end
+
+  def evaluate(script)
+    @js.evaluate script
+  end
     
   def configure_context(context, hash={})
     hash ||= {}
