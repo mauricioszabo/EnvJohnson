@@ -34,4 +34,18 @@ describe EnvJohnson do
     js.body.should have_tag("#example")
     js.body.should have_tag("#something")
   end
+
+  it 'should correctly return the elements by tag name' do
+    code = <<-JS
+      document.getElementById("example").innerHTML = '\
+        <table class="table">\
+          <tr>\
+              <th class="sorting"><a href="#">login</a></th>\
+          </tr>\
+        </table>\
+      '
+    JS
+    js = EnvJohnson.new code
+    js.evaluate('document.getElementsByTagNameCorrected("a").length').should == 1
+  end
 end

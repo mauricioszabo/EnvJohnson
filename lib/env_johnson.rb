@@ -17,6 +17,7 @@ class EnvJohnson
       var check_urls = function(event) {
         document.innerHTMLBeforeChanges = document.innerHTML;
         #{rewrite_get_element_by_id}
+        #{add_tag_name}
       };
       document.addEventListener('load', check_urls);
       window.location = "http://example.com/";
@@ -65,6 +66,23 @@ class EnvJohnson
     JS
   end
   private :rewrite_get_element_by_id
+
+  def add_tag_name
+    <<-JS
+      document.getElementsByTagNameCorrected = function(tagName) {
+        var all = document.getElementsByTagName("*");
+        var allLength = all.length;
+        var elements = [];
+        for(var i = 0; i < allLength; i++) {
+          if(all[i].tagName.toUpperCase() === tagName.toUpperCase()) {
+            elements.push(all[i]);
+          }
+        }
+        return elements;
+      }
+    JS
+  end
+  private :add_tag_name
 
   def load_javascripts(jss)
     jss.each do |js|
