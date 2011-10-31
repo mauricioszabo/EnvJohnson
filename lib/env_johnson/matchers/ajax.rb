@@ -45,20 +45,19 @@ module Matchers
     private :with_parameters?
 
     def failure_message
-      "Expected #@js to #{rest}"
+      "Expected #@js to be #{rest}"
     end
 
     def negative_failure_message
-      "Expected #@js not to #{rest}"
+      "Expected #@js not to be #{rest}"
     end
 
     def rest
-      "be an ajax call".tap do |m|
+      "an ajax call".tap do |m|
         m << " to #{@params[:to].inspect}" if @params[:to]
         m << " with parameters #{@params[:params].inspect}" if @params[:params]
       end
     end
-    private :rest
   end
 end
 

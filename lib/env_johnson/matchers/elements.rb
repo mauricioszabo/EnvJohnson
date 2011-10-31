@@ -18,10 +18,13 @@ module Matchers
     def find_element
       run_action = <<-JS
         try {
+          var onclick = element.getAttribute('onclick');
+          onclick = "function() { " + onclick + " }"
           element.click();
           //TODO: Why this doesn't work: element.onclick();
-          eval(element.getAttribute('onclick'))
+          eval(onclick)();
         } catch(e) {
+          console.log(e);
         }
       JS
 
@@ -96,6 +99,7 @@ module Matchers
 
     def rest
       "have an element #{@element.upcase} with text '#@text'".tap do |m|
+        m << " and, on clicked, is " << @ajax.rest if @ajax
       end
     end
     private :rest

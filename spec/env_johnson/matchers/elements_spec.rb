@@ -9,7 +9,7 @@ describe Matchers::Elements do
         xmlhttp.send();
       }
 
-      document.getElementById('example').innerHTML = "<a href='#' onClick='javascript:remote()'>Example Link</a>";
+      document.getElementById('example').innerHTML = "<a href='#' onClick='javascript:remote();return false'>Example Link</a>";
     EOF
   }
 
