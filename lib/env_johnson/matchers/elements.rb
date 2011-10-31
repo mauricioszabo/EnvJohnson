@@ -37,7 +37,7 @@ module Matchers
 
     def find_link()
       return <<-JS
-        var matches = document.getElementsByTagName('a');
+        var matches = document.getElementsByTagNameCorrected('a');
         var i, l = matches.length;
         for(i = 0; i < l; i++) {
           var element = matches[i];
@@ -52,8 +52,8 @@ module Matchers
 
     def find_button
       return <<-JS
-        var matches1 = document.getElementsByTagName('input');
-        var matches2 = document.getElementsByTagName('button');
+        var matches1 = document.getElementsByTagNameCorrected('input');
+        var matches2 = document.getElementsByTagNameCorrected('button');
         var funcao = function(matches) {
           var i, l = matches.length;
           for(i = 0; i < l; i++) {
